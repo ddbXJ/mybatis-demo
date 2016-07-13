@@ -4,4 +4,8 @@
     <select id="getUserById" parameterType="int" resultType="com.lxj.domain.User">
         SELECT * FROM users WHERE id=#{id}
     </select>
+
+    <insert id="addUser" parameterType="com.lxj.domain.User">
+        INSERT INTO users(name,age) VALUES (#{name},#{age})
+    </insert>
 </mapper>
