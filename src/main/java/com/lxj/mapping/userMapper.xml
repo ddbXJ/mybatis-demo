@@ -8,4 +8,16 @@
     <insert id="addUser" parameterType="com.lxj.domain.User">
         INSERT INTO users(name,age) VALUES (#{name},#{age})
     </insert>
+    
+    <update id="updateUserById" parameterType="com.lxj.domain.User">
+        UPDATE users SET name=#{name},age=#{age} WHERE id=#{id}
+    </update>
+
+    <delete id="deleteUserById" parameterType="int">
+        DELETE from users WHERE id=#{id}
+    </delete>
+
+    <select id="selectAll" resultType="com.lxj.domain.User">
+        SELECT * from users
+    </select>
 </mapper>

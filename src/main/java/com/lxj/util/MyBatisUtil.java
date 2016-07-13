@@ -19,11 +19,11 @@ public class MyBatisUtil {
 
     private static final String RESOURCE_PATH = "conf.xml";
 
-    public static SqlSession getSqlSession() {
+    public static SqlSession getSqlSession(boolean autoCommit) {
         try {
             Reader reader = Resources.getResourceAsReader(RESOURCE_PATH);
             SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(reader);
-            return sessionFactory.openSession();
+            return sessionFactory.openSession(autoCommit);
         } catch (IOException e) {
             LOGGER.error("getSqlSession has e:{}",e.getMessage());
         }
