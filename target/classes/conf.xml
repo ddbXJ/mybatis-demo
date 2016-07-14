@@ -18,5 +18,7 @@
 
     <mappers>
         <mapper resource="com/lxj/mapping/userMapper.xml"/>
+
+        <mapper class="com.lxj.mapping.UserMapperI"/>
     </mappers>
 </configuration>
