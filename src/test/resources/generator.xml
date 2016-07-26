@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- classPathEntry: 设置mysql驱动路径 -->
+    <classPathEntry location="/Users/lixuejiao/.m2/repository/mysql/mysql-connector-java/5.1.29/mysql-connector-java-5.1.29.jar"/>
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <!-- jdbc连接信息 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/mybatis" userId="root"
+                        password="">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 生成vo对象 -->
+        <javaModelGenerator targetPackage="com.lxj.domain"
+                            targetProject="/Users/lixuejiao/Codes/mybatis-demo/src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- 用于定义SQL映射生成器的属性。(xml) -->
+        <sqlMapGenerator targetPackage="com.lxj.mapping"
+                         targetProject="/Users/lixuejiao/Codes/mybatis-demo/src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!-- 生成DAO的类文件以及配置文件 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.lxj.mapping"
+                             targetProject="/Users/lixuejiao/Codes/mybatis-demo/src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- tableName:想要生成的数据库表,自动化工具会根据该表的结构生成相应的vo对象 -->
+        <table tableName="teacher" domainObjectName="Teacher" enableDeleteByPrimaryKey="false" enableDeleteByExample="false"/>
+    </context>
+
+</generatorConfiguration>
