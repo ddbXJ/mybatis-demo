@@ -39,7 +39,10 @@
         </javaClientGenerator>
 
         <!-- tableName:想要生成的数据库表,自动化工具会根据该表的结构生成相应的vo对象 -->
-        <table tableName="teacher" domainObjectName="Teacher" enableDeleteByPrimaryKey="false" enableDeleteByExample="false"/>
+        <!--<table tableName="teacher" domainObjectName="Teacher" enableDeleteByPrimaryKey="false" enableDeleteByExample="false"/>-->
+        <table tableName="teacher" domainObjectName="Teacher" enableDeleteByPrimaryKey="false" enableDeleteByExample="false">
+            <generatedKey column="t_id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true"/>
+        </table>
     </context>
 
 </generatorConfiguration>

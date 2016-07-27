@@ -1,3 +1,4 @@
+import com.lxj.domain.Teacher;
 import com.lxj.domain.User;
 import com.lxj.util.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
@@ -78,5 +79,20 @@ public class SimpleTest {
         for (User user : users) {
             System.out.println(user);
         }
+    }
+
+    @Test
+    public void testAddTeacher() {
+        SqlSession session = MyBatisUtil.getSqlSession(true);
+        String statement = "com.lxj.mapping.TeacherMapper.insert";
+        Teacher teacher = new Teacher();
+        teacher.settName("xxx");
+        int retValue = session.insert(statement,teacher);
+        //此处如果不commit，就会产生脏数据，id自增长了，但是实际上数据没有插入进去
+        //解决方案：Util里openSession()的时候传一个boolean，表示是否需要自动提交
+        //session.commit();
+        session.close();
+        System.out.println("return : " + retValue);
+        System.out.println("teacher : " + teacher.gettId());
     }
 }

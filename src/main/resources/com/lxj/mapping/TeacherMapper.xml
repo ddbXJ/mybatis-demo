@@ -87,23 +87,23 @@
     where t_id = #{tId,jdbcType=INTEGER}
   </select>
   <insert id="insert" parameterType="com.lxj.domain.Teacher" >
-    insert into teacher (t_id, t_name)
-    values (#{tId,jdbcType=INTEGER}, #{tName,jdbcType=VARCHAR})
+    <selectKey resultType="java.lang.Integer" keyProperty="tId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into teacher (t_name)
+    values (#{tName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.lxj.domain.Teacher" >
+    <selectKey resultType="java.lang.Integer" keyProperty="tId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into teacher
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="tId != null" >
-        t_id,
-      </if>
       <if test="tName != null" >
         t_name,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="tId != null" >
-        #{tId,jdbcType=INTEGER},
-      </if>
       <if test="tName != null" >
         #{tName,jdbcType=VARCHAR},
       </if>
