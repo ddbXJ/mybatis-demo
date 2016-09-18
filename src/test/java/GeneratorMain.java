@@ -1,8 +1,5 @@
 import org.mybatis.generator.api.ShellRunner;
 
-/**
- * Created by lixuejiao on 16/7/26.
- */
 public class GeneratorMain {
     public static void main(String[] args) {
         args = new String[3];

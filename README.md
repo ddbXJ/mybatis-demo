@@ -22,3 +22,6 @@ XxxDTOMapper.xml
 
 TestCRUDByAnnotationMapper
 > 这个是针对Mapper不用xml写sql,而是写在interface的注释中的测试类
+
+com.lxj.dao
+> 用来测试common-dao
