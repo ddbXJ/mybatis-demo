@@ -21,7 +21,6 @@
         <mapper resource="com/lxj/mapping/TeacherMapper.xml"/>
 
         <mapper class="com.lxj.mapping.UserMapperI"/>
-        <mapper resource="com/lxj/protest/ProductMapper.xml"/>
         <mapper resource="com/lxj/mapping/productId.xml"/>
     </mappers>
 </configuration>
