@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lxj.protest.ProductMapper" >
+    <select id="queryProductIds" resultType="com.lxj.protest.ProductQueryDTO">
+        select
+            p.`entity_id`
+        from
+            catalog_product_entity p
+            left join catalog_product_relation r on r.parent_id=p.entity_id
+            left join cataloginventory_stock_item stock on stock.product_id=r.child_id
+            left join catalog_product_entity_int status on status.entity_id = r.child_id and status.attribute_id = 96
+        where
+            p.type_id='configurable'
+            <if test="status != null" >
+                and status.value = #{status}
+            </if>
+            <if test="pids != null" >
+                and p.entity_id in
+                <foreach item="item" index="index" collection="pids" open="(" separator="," close=")">#{item}</foreach>
+            </if>
+            <if test="cids != null" >
+                and p.entity_id in
+                (
+                select
+                cp.`entity_id`
+                from
+                catalog_product_entity cp
+                left join catalog_category_product category on category.product_id=cp.entity_id
+                left join catalog_category_entity c on c.entity_id=category.category_id
+                where
+                c.entity_id in
+                <foreach item="item" index="index" collection="cids" open="(" separator="," close=")">#{item}</foreach>
+                )
+            </if>
+            <if test="bids != null" >
+                and p.entity_id in
+                (
+                select
+                bp.`entity_id`
+                from
+                catalog_product_entity bp
+                left join catalog_product_entity_int brand on brand.entity_id=bp.entity_id and brand.attribute_id=135
+                left join yitiao_brand b on b.entity_id=brand.value
+                where
+                b.entity_id in
+                <foreach item="item" index="index" collection="bids" open="(" separator="," close=")">#{item}</foreach>
+                )
+            </if>
+            <if test="vids != null" >
+                and p.entity_id in
+                (
+                select
+                vp.`entity_id`
+                from
+                catalog_product_entity vp
+                left join catalog_product_entity_int channel on channel.entity_id=vp.entity_id and channel.attribute_id=137
+                left join yitiao_vendor v on v.entity_id=channel.value
+                where
+                v.entity_id in
+                <foreach item="item" index="index" collection="vids" open="(" separator="," close=")">#{item}</foreach>
+                )
+            </if>
+            group by p.`entity_id`
+            <if test="status == 1 &amp;&amp; stock == 0" >
+                having sum(stock.qty) &lt;= 0
+            </if>
+            <if test="status == 1 &amp;&amp; stock == 1" >
+                having sum(stock.qty) > 0
+            </if>
+            limit
+            <if test="offset != 0" >
+                #{offset},
+            </if>
+            <if test="limit != 0" >
+                #{limit}
+            </if>
+    </select>
+</mapper>

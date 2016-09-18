@@ -17,7 +17,7 @@ public class MyBatisUtil {
 
     private static Logger LOGGER = LoggerFactory.getLogger(MyBatisUtil.class);
 
-    private static final String RESOURCE_PATH = "conf.xml";
+    private static String RESOURCE_PATH = "conf.xml";
 
     public static SqlSession getSqlSession(boolean autoCommit) {
         try {
@@ -28,5 +28,13 @@ public class MyBatisUtil {
             LOGGER.error("getSqlSession has e:{}",e.getMessage());
         }
         return null;
+    }
+
+    public static String getResourcePath() {
+        return RESOURCE_PATH;
+    }
+
+    public static void setResourcePath(String resourcePath) {
+        RESOURCE_PATH = resourcePath;
     }
 }

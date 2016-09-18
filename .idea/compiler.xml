@@ -23,12 +23,10 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="mybatis-demo" />
-        <module name="spring-demo" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="mybatis-demo" target="1.5" />
-      <module name="spring-demo" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
